@@ -7,7 +7,6 @@ public class AireAcondicionado {
     private int cambiosTemp;
     private double tempMax;
     private double tempMin;
-    private String estadisticas;
 
     public AireAcondicionado (double maximo, double minimo) {
         temperatura = 15.0;
@@ -17,13 +16,12 @@ public class AireAcondicionado {
         cambiosTemp = 0;
         tempMax = 15.0;
         tempMin = 15.0;
-        estadisticas = ("Temperatura actual: " + temperatura + "º | Temp. máxima posible: " + max + "º | Temp. mínima posible:" + min + "º | Temp. minima seleccionada: " +tempMin + "º | Temp. máxima seleccionada: " + tempMax + "º | Cambios de Temperatura: " + cambiosTemp);
     }
 
     public double getTemperatura() {
         return temperatura;
     }
-    
+
     public void setIncremento(double incrementoTemperatura) {
         if (incrementoTemperatura < 0){
             System.out.println("Error: No es un valor adecuado.");  
@@ -40,7 +38,9 @@ public class AireAcondicionado {
         else{
             temperatura = temperatura + incremento;
             cambiosTemp = cambiosTemp + 1;
-            tempMax = temperatura;
+            if (temperatura > tempMax) {
+                tempMax = temperatura;
+            }
         }
     }
 
@@ -51,15 +51,19 @@ public class AireAcondicionado {
         else{
             temperatura = temperatura - incremento;
             cambiosTemp = cambiosTemp + 1;
-            tempMin = temperatura;
+            if (temperatura < tempMin) {
+                tempMin = temperatura;
+            }
         }
     }
-    
+
     public void imprimirEstadisticas() {
-        System.out.println(estadisticas);
+        System.out.println(getEstadisticas());
     }
-    
+
     public String getEstadisticas() {
+        String estadisticas;
+        estadisticas = ("Temperatura actual: " + temperatura + "º | Temp. máxima posible: " + max + "º | Temp. mínima posible:" + min + "º | Temp. minima seleccionada: " +tempMin + "º | Temp. máxima seleccionada: " + tempMax + "º | Cambios de Temperatura: " + cambiosTemp);
         return estadisticas;
     }
 }
